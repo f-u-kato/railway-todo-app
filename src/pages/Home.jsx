@@ -142,6 +142,8 @@ const Tasks = (props) => {
               >
                 {task.title}
                 <br />
+                {task.limit.slice(0,-4)}
+                <br   />
                 {task.done ? '完了' : '未完了'}
               </Link>
             </li>
@@ -164,10 +166,38 @@ const Tasks = (props) => {
             >
               {task.title}
               <br />
+                <Limit limit={task.limit} />
+              <br />
               {task.done ? '完了' : '未完了'}
             </Link>
           </li>
         ))}
     </ul>
   )
+}
+
+const Limit = (props)=>{
+  //期限日時
+  let {limit} = props
+  limit=new Date(limit)
+  let year = limit.getFullYear();
+  let month = limit.getMonth() + 1;
+  let day = limit.getDate();
+  let hour = limit.getHours().toString().padStart(2, '0');
+  let minute = limit.getMinutes().toString().padStart(2, '0');
+
+  //現在日時との差分
+  let sub = limit - new Date()
+  if(sub<0) sub=0;
+  let subDay = (Math.floor(sub/1000/60/60/24));
+  let subHour = (Math.floor(sub/1000/60/60)%24).toString().padStart(2, '0');
+  let subMinute = (Math.floor(sub/1000/60)%60).toString().padStart(2, '0');
+
+
+
+  return <>
+    期限日時 &nbsp; {year}年{month}月{day}日 &nbsp; {hour}:{minute}
+    <br />
+    残り &nbsp; {subDay}日 &nbsp; {subHour}:{subMinute}
+  </>
 }
