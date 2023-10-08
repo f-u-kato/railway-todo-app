@@ -11,10 +11,12 @@ export const EditTask = () => {
   const { listId, taskId } = useParams()
   const [cookies] = useCookies()
   const [title, setTitle] = useState('')
+  const [limit, setLimit] = useState('')
   const [detail, setDetail] = useState('')
   const [isDone, setIsDone] = useState()
   const [errorMessage, setErrorMessage] = useState('')
   const handleTitleChange = (e) => setTitle(e.target.value)
+  const handleLimitChange = (e) => setLimit(e.target.value)
   const handleDetailChange = (e) => setDetail(e.target.value)
   const handleIsDoneChange = (e) => setIsDone(e.target.value === 'done')
   const onUpdateTask = () => {
@@ -23,6 +25,7 @@ export const EditTask = () => {
       title: title,
       detail: detail,
       done: isDone,
+      limit: limit+":00Z",
     }
 
     axios
@@ -65,6 +68,7 @@ export const EditTask = () => {
       .then((res) => {
         const task = res.data
         setTitle(task.title)
+        setLimit(task.limit.slice(0,-4))
         setDetail(task.detail)
         setIsDone(task.done)
       })
@@ -87,6 +91,15 @@ export const EditTask = () => {
             onChange={handleTitleChange}
             className="edit-task-title"
             value={title}
+          />
+          <br />
+          <label>期限</label>
+          <br/>
+          <input
+            type='datetime-local'
+            onChange={handleLimitChange}
+            className='new-task-limit'
+            value={limit}
           />
           <br />
           <label>詳細</label>

@@ -1,1 +1,2 @@
-export const url = window.process.env.REACT_APP_API_URL
+/* eslint no-undef: 0 */
+export const url = process.env.REACT_APP_API_URL
