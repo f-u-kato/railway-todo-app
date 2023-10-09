@@ -63,6 +63,21 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`)
       })
   }
+  const handleListKeyDown = (e, id) => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      //選択中のリストを取得
+      const currentIndex = lists.findIndex((list) => list.id === selectListId);
+      let nextIndex;
+      if (e.key === 'ArrowLeft') {
+        nextIndex = currentIndex === 0 ? lists.length - 1 : currentIndex - 1;
+      } else {
+        nextIndex = currentIndex === lists.length - 1 ? 0 : currentIndex + 1;
+      }
+      //次の選択
+      const nextListId = lists[nextIndex].id;
+      handleSelectList(nextListId);
+    }
+  };
   return (
     <div>
       <Header />
@@ -90,6 +105,10 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleListKeyDown(e,list.id)}
+                  tabIndex={0}
+                  role='tab'
+                  aria-label={list.title}
                 >
                   {list.title}
                 </li>
@@ -142,7 +161,7 @@ const Tasks = (props) => {
               >
                 {task.title}
                 <br />
-                {task.limit.slice(0,-4)}
+                <Limit limit={task.limit} />
                 <br   />
                 {task.done ? '完了' : '未完了'}
               </Link>
