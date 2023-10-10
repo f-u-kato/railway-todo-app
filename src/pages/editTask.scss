@@ -36,3 +36,24 @@
 .error-message {
   color: #ff3333;
 }
+
+@media screen and (max-width: 768px) {
+  .edit-task {
+    width: 70%;
+    margin: 0 auto;
+    .edit-task-select-list,
+    .edit-task-title,
+    .edit-task-detail,
+    .edit-task-limit {
+      width: 100%;
+      margin-bottom: 25px;
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .edit-task {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

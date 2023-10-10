@@ -25,7 +25,7 @@ export const EditTask = () => {
       title: title,
       detail: detail,
       done: isDone,
-      limit: limit+":00Z",
+      limit: limit + ':00Z',
     }
 
     axios
@@ -68,7 +68,7 @@ export const EditTask = () => {
       .then((res) => {
         const task = res.data
         setTitle(task.title)
-        setLimit(task.limit.slice(0,-4))
+        setLimit(task.limit.slice(0, -4))
         setDetail(task.detail)
         setIsDone(task.done)
       })
@@ -94,9 +94,9 @@ export const EditTask = () => {
           />
           <br />
           <label>期限</label>
-          <br/>
+          <br />
           <input
-            type='datetime-local'
+            type="datetime-local"
             onChange={handleLimitChange}
             className="edit-task-limit"
             value={limit}
