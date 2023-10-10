@@ -3,11 +3,6 @@
   list-style: none;
   width: 1000px;
 
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 0 20px;
-  }
-
   .list-header {
     display: flex;
     justify-content: space-between;
@@ -76,5 +71,37 @@
     .display-select {
       width: 100%;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .taskList{
+    width: 95%;
+
+    .list-menu{
+      font-size: 80%;
+    }
+    .list-tab{
+      width:60%;
+      flex-wrap: wrap;
+      .list-tab-item{
+        width: 20%;
+        padding-bottom: 10px;
+      }
+    }
+
+  }
+}
+@media screen and (max-width: 320px) {
+  .taskList{
+    width: 95%;
+    .list-tab{
+      width:60%;
+      .list-tab-item{
+        width:60%;
+        margin-bottom:10px;
+      }
+    }
+
   }
 }
