@@ -23,6 +23,7 @@ export const Home = () => {
       })
       .then((res) => {
         setLists(res.data)
+        console.log(res.data[0].limit)
       })
       .catch((err) => {
         setErrorMessage(`リストの取得に失敗しました。${err}`)
@@ -63,7 +64,7 @@ export const Home = () => {
         setErrorMessage(`タスクの取得に失敗しました。${err}`)
       })
   }
-  const handleListKeyDown = (e, id) => {
+  const handleListKeyDown = (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       //選択中のリストを取得
       const currentIndex = lists.findIndex((list) => list.id === selectListId)
@@ -78,6 +79,7 @@ export const Home = () => {
       handleSelectList(nextListId)
     }
   }
+  document.onkeydown = e => handleListKeyDown(e);
   return (
     <div>
       <Header />
@@ -105,7 +107,6 @@ export const Home = () => {
                   key={key}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleSelectList(list.id)}
-                  onKeyDown={(e) => handleListKeyDown(e, list.id)}
                   tabIndex={0}
                   role="tab"
                   aria-label={list.title}
@@ -198,7 +199,7 @@ const Tasks = (props) => {
 const Limit = (props) => {
   //期限日時
   let { limit } = props
-  limit = new Date(limit)
+  limit = new Date(limit.slice(0, -4))
   let year = limit.getFullYear()
   let month = limit.getMonth() + 1
   let day = limit.getDate()
